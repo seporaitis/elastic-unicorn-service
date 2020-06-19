@@ -1,0 +1,185 @@
+{
+  "shapes": {
+    "String": {
+      "type": "string"
+    },
+    "Integer": {
+      "type": "integer"
+    },
+    "MaxResults":{
+      "type":"integer",
+      "max":50,
+      "min":1
+    },
+    "NextToken":{
+      "type":"string",
+      "max":2048,
+      "min":1
+    },
+    "InvalidParameterException": {
+      "exception": true,
+      "documentation": "<p>The specified parameter is invalid. Review the available parameters for the API request.</p>",
+      "members": {
+      },
+      "type": "structure"
+    },
+    "ClientException": {
+      "exception": true,
+      "documentation": "<p>These errors are usually caused by a client action, such as using an action or resource on behalf of a user that doesn't have permissions to use the action or resource, or specifying an identifier that is not valid.</p>",
+      "members": {
+        "message": {
+          "shape": "String"
+        }
+      },
+      "type": "structure"
+    },
+    "ServerException": {
+      "fault": true,
+      "exception": true,
+      "documentation": "<p>These errors are usually caused by a server issue.</p>",
+      "members": {
+        "message": {
+          "shape": "String"
+        }
+      },
+      "type": "structure"
+    },
+    "Unicorn": {
+      "members": {
+        "UnicornName": {
+          "documentation": "<p>The name of the unicorn</p>",
+          "shape": "String"
+        },
+        "UnicornId": {
+          "documentation": "<p>The id of the unicorn</p>",
+          "shape": "String"
+        },
+        "Arn": {
+          "documentation": "<p>Unicorn arn</p>",
+          "shape": "String"
+        },
+        "HornLengthInFeet": {
+          "documentation": "<p>Unicorn horn length</p>",
+          "shape": "Integer"
+        }
+      },
+      "type": "structure"
+    },
+    "GetUnicornResponse": {
+      "members": {
+        "Unicorn": {
+          "documentation": "<p>Single unicorn.</p>",
+          "shape": "Unicorn"
+        }
+      },
+      "type": "structure"
+    },
+    "GetUnicornRequest": {
+      "members": {
+        "UnicornId": {
+          "documentation": "<p>The id of the unicorn</p>",
+          "shape": "String"
+        }
+      },
+      "type": "structure"
+    },
+    "DescribeUnicornsList": {
+      "type": "list",
+      "member": {"shape": "Unicorn"}
+    },
+    "DescribeUnicornsResponse": {
+      "members": {
+        "Unicorns": {
+          "documentation": "<p>List of unicorns</p>",
+          "shape": "DescribeUnicornsList"
+        }
+      },
+      "type": "structure"
+    },
+    "DescribeUnicornsRequest": {
+      "members":{
+        "MaxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of items to return for this call. The call also returns a token that you can specify in a subsequent call to get the next set of results.</p>",
+          "box":true,
+          "location":"querystring",
+          "locationName":"max_results"
+        },
+        "NextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token to start the list. Use this token to get the next set of results.</p>",
+          "location":"querystring",
+          "locationName":"next_token"
+        }
+      },
+      "type": "structure"
+    }
+  },
+  "operations": {
+    "GetUnicorn": {
+      "documentation": "<p>TBD</p>",
+      "errors": [
+        {
+          "shape": "ServerException"
+        },
+        {
+          "shape": "ClientException"
+        },
+        {
+          "shape": "InvalidParameterException"
+        }
+      ],
+      "output": {
+        "shape": "GetUnicornResponse"
+      },
+      "input": {
+        "shape": "GetUnicornRequest"
+      },
+      "http": {
+        "requestUri": "/Prod/GetUnicorn",
+        "method": "POST"
+      },
+      "name": "GetUnicorn"
+    },
+    "DescribeUnicorns": {
+      "documentation": "<p>TBD</p>",
+      "errors": [
+        {
+          "shape": "ServerException"
+        },
+        {
+          "shape": "ClientException"
+        },
+        {
+          "shape": "InvalidParameterException"
+        }
+      ],
+      "output": {
+        "shape": "DescribeUnicornsResponse"
+      },
+      "input": {
+        "shape": "DescribeUnicornsRequest"
+      },
+      "http": {
+        "requestUri": "/Prod/DescribeUnicorns",
+        "method": "POST"
+      },
+      "name": "GetUnicorn"
+    }
+
+  },
+  "metadata": {
+    "uid": "eus-2019-10-20",
+    "signatureVersion": "v4",
+    "signingName": "execute-api",
+    "serviceId": "EUS",
+    "serviceFullName": "Elastic Unicorn Service",
+    "serviceAbbreviation": "EUS",
+    "protocol": "rest-json",
+    "apiVersion": "2019-10-20",
+    "jsonVersion": "1.1",
+    "endpointPrefix": "qd5wrhfwn5.execute-api"
+  },
+  "documentation": "<fullname>Elastic Unicorn Service</fullname> <p>Elastic Unicorn Service (EUC) is a highly scalable, fast, unicorn management service that makes it easy to run, stop, and manage unicorns.</p>",
+  "version": "2.0"
+}

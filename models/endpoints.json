@@ -1,0 +1,30 @@
+{
+  "partitions": [
+    {
+      "defaults": {
+        "hostname": "{service}.{region}.{dnsSuffix}",
+        "protocols": "https",
+        "signatureVersions": [ "v4" ]
+      },
+      "dnsSuffix": "amazonaws.com",
+      "partition": "unicorn",
+      "partitionName": "Unicorn Standard",
+      "regionRegex": "^(us)\\-\\w+\\-\\d+$",
+      "regions": {
+        "eu-west-1": {
+          "description": "EU (Ireland)"
+        }
+      },
+      "services": {
+        "eus": {
+          "endpoints": {
+            "eu-west-1": {
+              "hostname": "https://qd5wrhfwn5.execute-api.eu-west-1.amazonaws.com"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "version": 3
+}

@@ -1,0 +1,7 @@
+ansible
+awscli
+boto3
+ipython
+pip-tools
+pytest
+tox

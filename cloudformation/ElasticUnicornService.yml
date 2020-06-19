@@ -1,0 +1,159 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        ZipFile: >-
+          import json, os
+
+          DATABASE = {
+            "u-00001": {
+              "Arn": f"arn:custom:eus:{os.environ.get('AWS_REGION')}:0123456789:unicorn/u-00001",
+              "UnicornId": "u-00001",
+              "UnicornName": "Calypso",
+              "HornLengthInFeet": 3,
+            },
+            "u-00002": {
+              "Arn": f"arn:custom:eus:{os.environ.get('AWS_REGION')}:0123456789:unicorn/u-00002",
+              "UnicornId": "u-00002",
+              "UnicornName": "Epimelide",
+              "HornLengthInFeet": 6,
+            },
+            "u-00003": {
+              "Arn": f"arn:custom:eus:{os.environ.get('AWS_REGION')}:0123456789:unicorn/u-00003",
+              "UnicornId": "u-00003",
+              "UnicornName": "Xanthippe",
+              "HornLengthInFeet": 4,
+            },
+          }
+
+          def describe_unicorns(request):
+            return {
+              "Unicorns": [unicorn for unicorn in DATABASE.values()]
+            }
+
+          def get_unicorn(request):
+            if request['UnicornId'] not in DATABASE:
+              raise ValueError("Unicorn not found.")
+
+            return {
+              "Unicorn": DATABASE[request['UnicornId']],
+            }
+
+          FUNC_MAP = {
+            "GetUnicorn": get_unicorn,
+            "DescribeUnicorns": describe_unicorns,
+          }
+
+          def handler(event, context):
+            request = json.loads(event['body'] or "{}")
+            func_name = event['pathParameters']['proxy']
+            func = FUNC_MAP[func_name]
+            try:
+              return {
+                "statusCode": 200,
+                "headers": {
+                  "Content-Type": "application/json",
+                },
+                "body": json.dumps(func(request)),
+              }
+            except ValueError as err:
+              return {
+                "statusCode": 400,
+                "headers": {
+                  "Content-Type": "application/json",
+                },
+                "body": json.dumps({
+                  "message": str(err),
+                }),
+              }
+      Handler: index.handler
+      Role: !GetAtt FunctionRole.Arn
+      Runtime: python3.7
+      Timeout: 60
+
+  FunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt Function.Arn
+      Principal: apigateway.amazonaws.com
+
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub ElasticUnicornService-${AWS::Region}
+      EndpointConfiguration:
+        Types:
+        - EDGE
+      Parameters:
+        endpointConfigurationTypes: EDGE
+      Policy: !Sub >-
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "execute-api:Invoke",
+              "Resource": "arn:aws:execute-api:eu-west-1:${AWS::AccountId}:*/*/*/*"
+            }
+          ]
+        }
+
+  RestApiRoot:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref RestApi
+      ParentId: !GetAtt RestApi.RootResourceId
+      PathPart: '{proxy+}'
+
+  RestApiRootANY:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: AWS_IAM
+      RestApiId: !Ref RestApi
+      ResourceId: !Ref RestApiRoot
+      HttpMethod: ANY
+      RequestParameters: {}
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Function.Arn}/invocations
+
+  RestApiDeployment:
+    DependsOn: RestApiRootANY
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId: !Ref RestApi
+
+  RestApiStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId: !Ref RestApiDeployment
+      RestApiId: !Ref RestApi
+      StageName: Prod
+
+Outputs:
+
+  Hostname:
+    Value: !Sub ${RestApi}.execute-api.${AWS::Region}.amazonaws.com
+
+  RestApi:
+    Value: !Ref RestApi

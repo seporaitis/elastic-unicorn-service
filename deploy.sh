@@ -9,7 +9,7 @@ if [ "$stack" == '[]' ];  then
     command="create-stack"
 fi
 
-echo "> Deploying ElasticUnicornService ($command)"
+echo "> Deploying ElasticUnicornService"
 
 aws cloudformation \
     $command \
@@ -17,12 +17,21 @@ aws cloudformation \
     --template-body "$(cat ./cloudformation/ElasticUnicornService.yml)" \
     --capabilities CAPABILITY_IAM || true
 
+if [ "$stack" == "[]" ]; then
+    echo "> Deployment started, sleeping for 3minutes."
+    sleep 3m
+    echo "> Done. Run this command again, to continue the setup."
+    exit 0
+fi
+
 echo "> Ignore if the error says: No updates to be performed."
 
 api_id=$(aws cloudformation describe-stacks --stack-name ElasticUnicornService --query "Stacks[0].Outputs[?OutputKey == 'RestApi'] | [0].OutputValue")
 api_id=$(eval printf $api_id)
 
 api_hostname=$(aws cloudformation describe-stacks --stack-name ElasticUnicornService --query "Stacks[0].Outputs[?OutputKey == 'Hostname'] | [0].OutputValue")
+api_hostname=$(eval printf $api_hostname)
+
 
 current_hostname=$(grep -Hn -m 1 '"hostname": "https:' models/endpoints.json)
 current_api_id=$(grep -Hn -m 1 '"endpointPrefix": "' models/eus/2019-10-20/service-2.json)

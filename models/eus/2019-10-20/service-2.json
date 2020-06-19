@@ -178,7 +178,7 @@
     "protocol": "rest-json",
     "apiVersion": "2019-10-20",
     "jsonVersion": "1.1",
-    "endpointPrefix": "qd5wrhfwn5.execute-api"
+    "endpointPrefix": "3gw39mlvm2.execute-api"
   },
   "documentation": "<fullname>Elastic Unicorn Service</fullname> <p>Elastic Unicorn Service (EUC) is a highly scalable, fast, unicorn management service that makes it easy to run, stop, and manage unicorns.</p>",
   "version": "2.0"

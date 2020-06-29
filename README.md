@@ -2,7 +2,7 @@
 
 A proof-of-concept custom AWS service, exposed through a `botocore` client. Read
 the [blog
-post](https://www.seporaitis.net/posts/2020/06/25/aws-like-service-on-boto3/) to
+post](https://www.seporaitis.net/posts/2020/06/29/aws-like-service-on-boto3/) to
 understand more what this is.
 
 Running `tox` does not require any AWS resources and should give an impression

@@ -14,12 +14,11 @@ botocore==1.12.253        # via awscli, boto3, s3transfer
 cffi==1.14.0              # via cryptography
 click==7.0                # via pip-tools
 colorama==0.4.1           # via awscli
-cryptography==2.9.2       # via ansible
+cryptography==3.2         # via ansible
 decorator==4.4.0          # via ipython, traitlets
 distlib==0.3.0            # via virtualenv
 docutils==0.15.2          # via awscli, botocore
 filelock==3.0.12          # via tox, virtualenv
-importlib-metadata==1.6.1  # via pluggy, pytest, tox, virtualenv
 ipython-genutils==0.2.0   # via traitlets
 ipython==7.8.0            # via -r requirements.in
 jedi==0.15.1              # via ipython
@@ -52,7 +51,6 @@ traitlets==4.3.3          # via ipython
 urllib3==1.25.6           # via botocore
 virtualenv==20.0.23       # via tox
 wcwidth==0.1.7            # via prompt-toolkit, pytest
-zipp==3.1.0               # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

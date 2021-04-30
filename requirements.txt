@@ -4,55 +4,131 @@
 #
 #    pip-compile
 #
-ansible==2.9.9            # via -r requirements.in
-appdirs==1.4.4            # via virtualenv
-attrs==19.3.0             # via pytest
-awscli==1.16.263          # via -r requirements.in
-backcall==0.1.0           # via ipython
-boto3==1.9.253            # via -r requirements.in
-botocore==1.12.253        # via awscli, boto3, s3transfer
-cffi==1.14.0              # via cryptography
-click==7.0                # via pip-tools
-colorama==0.4.1           # via awscli
-cryptography==2.9.2       # via ansible
-decorator==4.4.0          # via ipython, traitlets
-distlib==0.3.0            # via virtualenv
-docutils==0.15.2          # via awscli, botocore
-filelock==3.0.12          # via tox, virtualenv
-importlib-metadata==1.6.1  # via pluggy, pytest, tox, virtualenv
-ipython-genutils==0.2.0   # via traitlets
-ipython==7.8.0            # via -r requirements.in
-jedi==0.15.1              # via ipython
-jinja2==2.11.2            # via ansible
-jmespath==0.9.4           # via boto3, botocore
-markupsafe==1.1.1         # via jinja2
-more-itertools==8.4.0     # via pytest
-packaging==20.4           # via pytest, tox
-parso==0.5.1              # via jedi
-pexpect==4.7.0            # via ipython
-pickleshare==0.7.5        # via ipython
-pip-tools==4.2.0          # via -r requirements.in
-pluggy==0.13.1            # via pytest, tox
-prompt-toolkit==2.0.10    # via ipython
-ptyprocess==0.6.0         # via pexpect
-py==1.8.2                 # via pytest, tox
-pyasn1==0.4.7             # via rsa
-pycparser==2.20           # via cffi
-pygments==2.4.2           # via ipython
-pyparsing==2.4.7          # via packaging
-pytest==5.4.3             # via -r requirements.in
-python-dateutil==2.8.0    # via botocore
-pyyaml==5.1.2             # via ansible, awscli
-rsa==3.4.2                # via awscli
-s3transfer==0.2.1         # via awscli, boto3
-six==1.15.0               # via cryptography, packaging, pip-tools, prompt-toolkit, python-dateutil, tox, traitlets, virtualenv
-toml==0.10.1              # via tox
-tox==3.15.2               # via -r requirements.in
-traitlets==4.3.3          # via ipython
-urllib3==1.25.6           # via botocore
-virtualenv==20.0.23       # via tox
-wcwidth==0.1.7            # via prompt-toolkit, pytest
-zipp==3.1.0               # via importlib-metadata
+ansible==2.9.9
+    # via -r requirements.in
+appdirs==1.4.4
+    # via virtualenv
+attrs==19.3.0
+    # via pytest
+awscli==1.16.263
+    # via -r requirements.in
+backcall==0.1.0
+    # via ipython
+boto3==1.9.253
+    # via -r requirements.in
+botocore==1.12.253
+    # via
+    #   awscli
+    #   boto3
+    #   s3transfer
+cffi==1.14.0
+    # via cryptography
+click==7.0
+    # via pip-tools
+colorama==0.4.1
+    # via awscli
+cryptography==2.9.2
+    # via ansible
+decorator==4.4.0
+    # via
+    #   ipython
+    #   traitlets
+distlib==0.3.0
+    # via virtualenv
+docutils==0.15.2
+    # via
+    #   awscli
+    #   botocore
+filelock==3.0.12
+    # via
+    #   tox
+    #   virtualenv
+ipython-genutils==0.2.0
+    # via traitlets
+ipython==7.8.0
+    # via -r requirements.in
+jedi==0.15.1
+    # via ipython
+jinja2==2.11.2
+    # via ansible
+jmespath==0.9.4
+    # via
+    #   boto3
+    #   botocore
+markupsafe==1.1.1
+    # via jinja2
+more-itertools==8.4.0
+    # via pytest
+packaging==20.4
+    # via
+    #   pytest
+    #   tox
+parso==0.5.1
+    # via jedi
+pexpect==4.7.0
+    # via ipython
+pickleshare==0.7.5
+    # via ipython
+pip-tools==4.2.0
+    # via -r requirements.in
+pluggy==0.13.1
+    # via
+    #   pytest
+    #   tox
+prompt-toolkit==2.0.10
+    # via ipython
+ptyprocess==0.6.0
+    # via pexpect
+py==1.8.2
+    # via
+    #   pytest
+    #   tox
+pyasn1==0.4.7
+    # via rsa
+pycparser==2.20
+    # via cffi
+pygments==2.4.2
+    # via ipython
+pyparsing==2.4.7
+    # via packaging
+pytest==5.4.3
+    # via -r requirements.in
+python-dateutil==2.8.0
+    # via botocore
+pyyaml==5.1.2
+    # via
+    #   ansible
+    #   awscli
+rsa==3.4.2
+    # via awscli
+s3transfer==0.2.1
+    # via
+    #   awscli
+    #   boto3
+six==1.15.0
+    # via
+    #   cryptography
+    #   packaging
+    #   pip-tools
+    #   prompt-toolkit
+    #   python-dateutil
+    #   tox
+    #   traitlets
+    #   virtualenv
+toml==0.10.1
+    # via tox
+tox==3.15.2
+    # via -r requirements.in
+traitlets==4.3.3
+    # via ipython
+urllib3==1.25.8
+    # via botocore
+virtualenv==20.0.23
+    # via tox
+wcwidth==0.1.7
+    # via
+    #   prompt-toolkit
+    #   pytest
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
